@@ -1,6 +1,6 @@
 package com.sheiladiz.recipes.service.implementation;
 
-import com.sheiladiz.recipes.UserMapper;
+import com.sheiladiz.recipes.mapper.UserMapper;
 import com.sheiladiz.recipes.dto.user.RequestLoginDto;
 import com.sheiladiz.recipes.dto.user.RequestRegisterDto;
 import com.sheiladiz.recipes.dto.user.ResponseLoginDto;
