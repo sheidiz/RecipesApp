@@ -21,7 +21,9 @@ public class Recipe {
     private String title;
     private String origin;
     private String description;
+    @Column(columnDefinition = "TEXT")
     private String ingredients;
+    @Column(columnDefinition = "TEXT")
     private String instructions;
     private int servings;
     private int cookTime;
@@ -46,7 +48,6 @@ public class Recipe {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-
     }
 
     @PreUpdate

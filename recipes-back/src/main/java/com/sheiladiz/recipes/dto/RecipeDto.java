@@ -19,6 +19,7 @@ public record RecipeDto(
         String creatorName,
         String creatorSurname,
         Category category,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }
