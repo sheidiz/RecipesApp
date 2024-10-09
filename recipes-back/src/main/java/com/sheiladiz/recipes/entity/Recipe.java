@@ -33,8 +33,7 @@ public class Recipe {
     @JoinColumn(name = "user_id")
     private User creator;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @Column(updatable = false)
