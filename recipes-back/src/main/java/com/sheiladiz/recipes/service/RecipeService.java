@@ -12,6 +12,12 @@ public interface RecipeService {
 
     List<RecipeDto> getAllRecipes();
 
+    List<RecipeDto> getAllRecipesByCreator(User user);
+
+    List<RecipeDto> getAllFavoriteRecipesByUser(User user);
+
+    void addRecipeToUserFavorites(User user, Long recipeId);
+
     List<RecipeDto> searchByKeyword(String keyword);
 
     List<RecipeDto> searchByCategory(Category category);

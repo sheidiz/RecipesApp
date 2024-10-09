@@ -8,6 +8,7 @@ import com.sheiladiz.recipes.entity.User;
 import com.sheiladiz.recipes.exception.ResourceNotFoundException;
 import com.sheiladiz.recipes.mapper.RecipeMapper;
 import com.sheiladiz.recipes.repository.RecipeRepository;
+import com.sheiladiz.recipes.repository.UserRepository;
 import com.sheiladiz.recipes.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
     private final RecipeMapper recipeMapper;
 
     @Override
@@ -31,9 +33,45 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public RecipeDto getRecipeById(Long id) {
+        Optional<Recipe> recipe = recipeRepository.findById(id);
+
+        if (recipe.isPresent()) {
+            return recipeMapper.toRecipeDTO(recipe.get());
+        } else {
+            throw new ResourceNotFoundException("No se encontro la receta.");
+        }
+    }
+
+    @Override
     public List<RecipeDto> getAllRecipes() {
         List<Recipe> recipes = recipeRepository.findAll();
         return recipeMapper.toRecipeDTOList(recipes);
+    }
+
+    @Override
+    public List<RecipeDto> getAllRecipesByCreator(User user) {
+        List<Recipe> recipes = user.getRecipes();
+        return recipeMapper.toRecipeDTOList(recipes);
+    }
+
+    @Override
+    public List<RecipeDto> getAllFavoriteRecipesByUser(User user) {
+        List<Recipe> recipes = user.getFavorites();
+        return recipeMapper.toRecipeDTOList(recipes);
+    }
+
+    @Override
+    public void addRecipeToUserFavorites(User user, Long recipeId){
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
+
+        if (recipe.isPresent()) {
+            List<Recipe> favorites = user.getFavorites();
+            favorites.add(recipe.get());
+            userRepository.save(user);
+        } else {
+            throw new ResourceNotFoundException("No se encontro la receta.");
+        }
     }
 
     @Override
@@ -54,14 +92,5 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeMapper.toRecipeDTOList(recipes);
     }
 
-    @Override
-    public RecipeDto getRecipeById(Long id) {
-        Optional<Recipe> recipe = recipeRepository.findById(id);
 
-        if (recipe.isPresent()) {
-            return recipeMapper.toRecipeDTO(recipe.get());
-        } else {
-            throw new ResourceNotFoundException("No se encontro la receta.");
-        }
-    }
 }
