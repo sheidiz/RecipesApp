@@ -1,7 +1,7 @@
 package com.sheiladiz.recipes.security;
 
-import com.sheiladiz.recipes.exception.ExpiredJwtException;
 import com.sheiladiz.recipes.exception.InvalidJwtException;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
