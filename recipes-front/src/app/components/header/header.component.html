@@ -1,0 +1,18 @@
+<nav class="navbar bg-zinc-200 flex items-center justify-evenly gap-2 p-2 tracking-widest">
+  <div class="navbar-logo col-span-1">
+    <a routerLink="/" class="selection-none font-extrabold text-3xl text-purple-800">RecipesApp</a>
+  </div>
+  <ul class="navbar-links col-span-1 flex gap-10 items-center">
+    <!--LOGGED USER MENU-->
+    <li *ngIf="!isAuthenticated"><a routerLink="/recetas">Recetas</a></li>
+    <li *ngIf="isAuthenticated"><a routerLink="/perfil">Mi Perfil</a></li>
+  </ul>
+  <div class="navbar-actions col-span-1 flex items-center">
+
+    <a *ngIf="!isAuthenticated" routerLink="/iniciar-sesion" class="px-4 text-purple-900">Iniciar sesión</a>
+    <a *ngIf="!isAuthenticated" routerLink="/registro" class="px-4 py-1 bg-purple-900 rounded-full text-white">Registro</a>
+
+    <a *ngIf="isAuthenticated" routerLink="/nueva-receta" class="px-4 text-purple-900">Crear receta</a>
+    <button *ngIf="isAuthenticated" (click)="logout()" class="px-4 py-1 bg-purple-900 rounded-full text-white">Cerrar sesión</button>
+  </div>
+</nav>
