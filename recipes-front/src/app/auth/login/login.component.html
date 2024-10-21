@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div class="flex justify-center items-center min-h-screen bg-gray-400">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <h2>Iniciar sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <mat-form-field appearence="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="jane@email.com" type="email">
+        <mat-error *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">El email es obligatorio.</span>
+          <span *ngIf="email?.errors?.['email']">Ingrese un email válido.</span>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearence="outline" class="w-full">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" placeholder="******" type="password">
+        <mat-error *ngIf="password?.invalid && password?.touched">
+          <span *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</span>
+          <span *ngIf="password?.errors?.['minLength']">La contraseña tiene que tener al menos 6
+            caracteres.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" class="w-full" type="submit" [disabled]="loginForm.invalid">
+        Iniciar sesión
+      </button>
+      <p *ngIf="loginError" class="text-red-600 text-center">{{loginError}}</p>
+    </form>

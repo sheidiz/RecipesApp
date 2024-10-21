@@ -1,1 +1,49 @@
-<p>register works!</p>
+<div class="flex justify-center items-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-xl p-10 max-w-lg">
+        <h2 class="!font-bold text-center !text-3xl pb-4">Registro</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+            <mat-form-field appearence="outline" class="w-full">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" placeholder="Jane" type="text">
+                <mat-error *ngIf="name?.invalid && name?.touched">
+                    <span *ngIf="name?.errors?.['required']">El nombre es obligatorio.</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearence="outline" class="w-full">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="surname" placeholder="Doe" type="text">
+                <mat-error *ngIf="surname?.invalid && surname?.touched">
+                    <span *ngIf="surname?.errors?.['required']">El apellido es obligatorio.</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearence="outline" class="w-full">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="jane@email.com" type="email">
+                <mat-error *ngIf="email?.invalid && email?.touched">
+                    <span *ngIf="email?.errors?.['required']">El email es obligatorio.</span>
+                    <span *ngIf="email?.errors?.['email']">Ingrese un email válido.</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearence="outline" class="w-full">
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" placeholder="******" type="password">
+                <mat-error *ngIf="password?.invalid && password?.touched">
+                    <span *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</span>
+                    <span *ngIf="password?.errors?.['minLength']">La contraseña tiene que tener al menos 6
+                        caracteres.</span>
+                    <span *ngIf="password?.errors?.['pattern']">La contraseña debe contener una mayúscula, una minúscula y
+                        un número.</span>
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="w-full" type="submit" [disabled]="registerForm.invalid">
+                Registrarme
+            </button>
+            <p *ngIf="registrationError" class="text-red-600 text-center">{{registrationError}}</p>
+        </form>
+    </div>
+</div>
