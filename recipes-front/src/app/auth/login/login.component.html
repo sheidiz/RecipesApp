@@ -1,7 +1,8 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-400">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-    <h2>Iniciar sesión</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+<div class="flex justify-center items-center min-h-screen">
+  <div class="bg-white rounded-lg shadow-xl p-20 max-w-lg">
+    <h2 class="!font-bold text-center !text-3xl pb-4">Iniciar sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 max-w-96">
+      
       <mat-form-field appearence="outline" class="w-full">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" placeholder="jane@email.com" type="email">
