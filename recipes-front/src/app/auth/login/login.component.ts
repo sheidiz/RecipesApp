@@ -33,10 +33,9 @@ export class LoginComponent {
         next: (response) => {
           this.loginError = null;
           sessionStorage.setItem('email', this.loginForm.value.email);
-          this.router.navigateByUrl('/');
         },
         error: (err) => {
-          console.error("Error al inicar sesión", err);
+          console.error("Error al iniciar sesión", err);
           this.loginError = "Inicio de sesión falló. Intentelo de nuevo."
         }
       })
