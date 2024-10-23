@@ -2,12 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-interface ResponseLoginDto {
-  id: number;
-  token: string;
-  expiresIn: number;
-}
+import { ResponseUserLogin } from '../models/user/ResponseUserLogin';
+import { RequestUserRegister } from '../models/user/RequestUserRegister';
+import { RequestUserLogin } from '../models/user/RequestUserLogin';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +15,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(userData: { email: string; password: string }): Observable<ResponseLoginDto> {
-    return this.http.post<ResponseLoginDto>(`${this.apiUrl}/login`, userData).pipe(
+  login(userData: RequestUserLogin): Observable<ResponseUserLogin> {
+    return this.http.post<ResponseUserLogin>(`${this.apiUrl}/login`, userData).pipe(
       tap(response => this.handleLoginResponse(response))
     );
   }
 
-  register(userData: { email: string; password: string, name: string; surname: string }): Observable<any> {
+  register(userData: RequestUserRegister): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
 
@@ -38,7 +35,7 @@ export class AuthService {
     return this.isAuthenticatedSubject.asObservable();
   }
 
-  private handleLoginResponse(response: ResponseLoginDto): void {
+  private handleLoginResponse(response: ResponseUserLogin): void {
     this.storeToken(response.token, response.expiresIn);
     this.isAuthenticatedSubject.next(true);
   }
@@ -52,7 +49,7 @@ export class AuthService {
   private hasValidToken(): boolean {
     const token = localStorage.getItem('token');
     const expiration = localStorage.getItem('tokenExpiration');
-    
+
     if (token && expiration) {
       const expirationDate = parseInt(expiration, 10);
       return expirationDate > new Date().getTime();
